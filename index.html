@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>買水龍頭 · iPhone 美術版 v2</title>
+<style>
+  :root {
+    --bg: #e8f1f4;
+    --frame: #f7fbfc;
+    --ink: #0f1c24;
+    --muted: #5a6f7a;
+    --line: #c5d5dc;
+    --card: #ffffff;
+    --primary: #0d7a8c;
+    --primary-soft: #d4eef2;
+    --accent: #e8a317;
+    --accent-soft: #fff3d6;
+    --danger: #b42318;
+    --danger-soft: #fde8e6;
+    --radius: 14px;
+    --shadow: 0 2px 10px rgba(15, 28, 36, 0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    font-family: -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: #c5d5dc;
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
+    overflow: hidden;
+  }
+  .frame {
+    width: 390px;
+    height: 100vh;
+    max-height: 844px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #f0f7f9 0%, var(--frame) 40%);
+    box-shadow: 0 0 0 1px #9db5bf;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .top {
+    padding: 14px 16px 12px;
+    background: linear-gradient(135deg, #0d7a8c 0%, #125a6b 100%);
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #e8f7fa;
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .top h1 { font-size: 18px; font-weight: 800; line-height: 1.3; }
+  .top .sub { font-size: 12px; color: rgba(255,255,255,0.82); margin-top: 4px; line-height: 1.4; }
+  .pager { flex: 1; overflow: hidden; position: relative; }
+  .track { display: flex; height: 100%; width: 500%; transition: transform 0.28s ease; }
+  .page {
+    width: 20%; height: 100%; overflow-y: auto;
+    -webkit-overflow-scrolling: touch; padding: 14px 14px 18px;
+  }
+  .page h2 {
+    font-size: 17px; font-weight: 800; margin-bottom: 6px; color: var(--ink);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .page h2 .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 8px;
+    background: var(--primary-soft); color: var(--primary);
+    font-size: 13px; font-weight: 800;
+  }
+  .lead { font-size: 13px; line-height: 1.5; color: var(--muted); margin-bottom: 12px; }
+  .term, .step, .fix, .shop, .size, .compare {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 12px; font-size: 13.5px; line-height: 1.5; margin-bottom: 9px;
+    box-shadow: var(--shadow);
+  }
+  .term { border-left: 3px solid var(--primary); }
+  .term .photo {
+    width: 100%; aspect-ratio: 1.55 / 1; object-fit: contain;
+    background: #f3f7f8; border-radius: 10px; margin-bottom: 10px;
+    border: 1px solid var(--line);
+  }
+  .term .cap {
+    font-size: 11px; color: var(--muted); margin: -6px 0 8px; text-align: center;
+  }
+  .term .cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--line);
+  }
+  .term .col { background: #f4fafb; border-radius: 10px; padding: 8px; }
+  .term .col.cn { background: var(--primary-soft); }
+  .term .col-h { font-size: 10px; color: var(--muted); margin-bottom: 3px; font-weight: 600; letter-spacing: 0.04em; }
+  .term .col-v { font-weight: 800; font-size: 13px; line-height: 1.35; color: var(--ink); }
+  .term .meta { color: #334852; font-size: 13px; }
+  .shop .name, .size .name { font-weight: 800; font-size: 14px; margin-bottom: 4px; color: var(--primary); }
+  .shop .row {
+    display: flex; gap: 10px; align-items: flex-start; margin-top: 8px;
+  }
+  .shop .thumb {
+    width: 56px; height: 56px; object-fit: contain; flex-shrink: 0;
+    background: #f3f7f8; border-radius: 10px; border: 1px solid var(--line);
+  }
+  .fix .rank {
+    display: inline-block; background: var(--accent-soft); color: #8a5a00;
+    padding: 2px 8px; border-radius: 6px; font-size: 12px; margin-bottom: 6px; font-weight: 800;
+  }
+  .fix { border-left: 3px solid var(--accent); }
+  .pipe { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .ring {
+    border: 3px solid var(--primary); border-radius: 50%; background: var(--primary-soft);
+    color: var(--primary); display: flex; align-items: center; justify-content: center;
+    font-weight: 800; flex-shrink: 0;
+  }
+  .ring.s3 { width: 56px; height: 56px; font-size: 13px; }
+  .ring.s4 { width: 70px; height: 70px; font-size: 14px; border-color: #0a5f6e; background: #c8e8ee; }
+  .size-photo {
+    width: 100%; border-radius: 10px; border: 1px solid var(--line);
+    margin-bottom: 10px; background: #fff; display: block;
+  }
+  .step { display: flex; align-items: flex-start; gap: 8px; border-left: 3px solid #7eb8c4; }
+  .step .n {
+    display: inline-flex; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--primary); color: #fff; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 12px; flex-shrink: 0;
+  }
+  .note, .koujue, .say {
+    font-size: 12.5px; line-height: 1.45; color: var(--muted);
+    margin-top: 8px; border-top: 1px dashed var(--line); padding-top: 8px;
+  }
+  .koujue, .say {
+    background: var(--accent-soft); border: none; border-radius: 12px;
+    padding: 10px 12px; color: #5c4200; margin-top: 10px;
+  }
+  .compare h3 { font-size: 13px; font-weight: 800; margin-bottom: 8px; color: var(--ink); }
+  .compare .pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .compare figure {
+    margin: 0; text-align: center;
+  }
+  .compare img {
+    width: 100%; aspect-ratio: 1; object-fit: contain;
+    background: #f3f7f8; border-radius: 10px; border: 1px solid var(--line);
+  }
+  .compare figcaption {
+    font-size: 11px; margin-top: 4px; color: var(--muted); line-height: 1.35; font-weight: 600;
+  }
+  .compare .yes { color: var(--primary); }
+  .compare .no { color: var(--danger); }
+  .bad {
+    border: none; background: var(--danger-soft); color: var(--danger);
+    border-radius: var(--radius); padding: 12px; font-size: 13.5px;
+    font-weight: 700; line-height: 1.45; margin-top: 4px;
+  }
+  .check { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .check span {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px; font-size: 16px; font-weight: 700; text-align: center;
+    box-shadow: var(--shadow); color: var(--ink);
+  }
+  .check .arr { border: none; background: transparent; box-shadow: none; padding: 0; font-size: 16px; color: var(--primary); }
+  .credit {
+    font-size: 10px; color: #8a9aa3; margin-top: 10px; line-height: 1.35;
+  }
+  .nav {
+    flex-shrink: 0; border-top: 1px solid var(--line); background: #fff; padding: 8px 8px 12px;
+  }
+  .dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #cfdce1; }
+  .dot.on { background: var(--primary); width: 18px; border-radius: 4px; }
+  .tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .tab {
+    border: none; background: #eef5f7; font-size: 11px; padding: 9px 2px;
+    text-align: center; line-height: 1.2; cursor: pointer; font-family: inherit;
+    color: var(--muted); border-radius: 10px; font-weight: 600;
+  }
+  .tab.on { background: var(--primary); color: #fff; }
+  .row-btns { display: flex; gap: 8px; margin-top: 8px; }
+  .row-btns button {
+    flex: 1; border: none; background: #eef5f7; padding: 11px;
+    font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer;
+    border-radius: 12px; color: var(--ink);
+  }
+  .row-btns button#next { background: var(--primary); color: #fff; }
+  .row-btns button:disabled { opacity: 0.35; }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="top">
+      <span class="tag">iPhone 美術版 v2 · 實物對照</span>
+      <h1>買水龍頭／接水件</h1>
+      <p class="sub">港樓牆多數四分 · 兩邊叫法都要認 · 左右滑或撳頁籤</p>
+    </div>
+
+    <div class="pager" id="pager">
+      <div class="track" id="track">
+        <section class="page" data-i="0">
+          <h2><span class="badge">1</span>對照卡</h2>
+          <p class="lead">香港叫法｜大陸／包裝常見名。教學兩邊都要認；買貨以包裝／牙徑為準。</p>
+
+          <div class="term">
+            <img class="photo" src="assets/angle-valve.webp" alt="角閥／三角閥實物示意" />
+            <div class="cap">實物示意 · 角閥／三角閥（曲尺制）</div>
+            <div class="cols">
+              <div class="col">
+                <div class="col-h">香港叫法</div>
+                <div class="col-v">曲尺制／曲尺掣</div>
+              </div>
+              <div class="col cn">
+                <div class="col-h">大陸／包裝</div>
+                <div class="col-v">角閥／三角閥</div>
+              </div>
+            </div>
+            <div class="meta">用途：牆上開關、轉彎出水<br>買時要對：入牆牙、出喉牙（三分／四分）</div>
+          </div>
+
+          <div class="term">
+            <img class="photo" src="assets/union-fitting.webp" alt="活接頭實物示意" />
+            <div class="cap">實物示意 · 活接頭（古力）</div>
+            <div class="cols">
+              <div class="col">
+                <div class="col-h">香港叫法</div>
+                <div class="col-v">古力</div>
+              </div>
+              <div class="col cn">
+                <div class="col-h">大陸／包裝</div>
+                <div class="col-v">活接頭</div>
+              </div>
+            </div>
+            <div class="meta">用途：硬喉可拆；異徑＝兩頭牙不同<br>買時要對：兩頭牙徑（可四分轉三分）</div>
+          </div>
+
+          <div class="term">
+            <img class="photo" src="assets/braided-hose.webp" alt="不鏽鋼編織軟管實物示意" />
+            <div class="cap">實物示意 · 不鏽鋼編織軟管／進水軟管</div>
+            <div class="cols">
+              <div class="col">
+                <div class="col-h">香港叫法</div>
+                <div class="col-v">軟網喉／鋼絲軟喉</div>
+              </div>
+              <div class="col cn">
+                <div class="col-h">大陸／包裝</div>
+                <div class="col-v">不鏽鋼編織軟管／進水軟管</div>
+              </div>
+            </div>
+            <div class="meta">用途：角閥接龍頭<br>買時要對：兩頭牙、長度；冷熱各一</div>
+          </div>
+
+          <div class="compare">
+            <h3>別認錯：進水軟管 vs 花灑軟管</h3>
+            <div class="pair">
+              <figure>
+                <img src="assets/braided-hose.webp" alt="進水軟管" />
+                <figcaption class="yes">✓ 進水軟管<br>（軟網喉／編織）</figcaption>
+              </figure>
+              <figure>
+                <img src="assets/shower-hose.webp" alt="花灑軟管" />
+                <figcaption class="no">✗ 花灑軟管<br>（彎喉；勿當進水）</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <p class="note">腳注：花灑那條彎喉＝花灑軟管，不是進水軟管（軟網喉）。<br>卡背：港樓牆多數四分｜龍頭先對進水牙｜量外牙外徑（約 10mm＝三分；約 13mm＝四分）。</p>
+          <p class="credit">圖為教學用擬真實物示意，非商品廣告。</p>
+        </section>
+
+        <section class="page" data-i="1">
+          <h2><span class="badge">2</span>三分 vs 四分＋怎麼量</h2>
+          <p class="lead">買龍頭／角閥／進水軟管，先對「牙」的大小。</p>
+          <img class="size-photo" src="assets/thread-sizes.webp" alt="三分與四分外牙外徑對照" />
+          <div class="size">
+            <div class="name">三分（細）</div>
+            <div class="pipe">
+              <div class="ring s3">3分</div>
+              <div><strong>外牙外徑約 10mm</strong><br>書面：DN10　／　3/8″</div>
+            </div>
+            常見：部分龍頭<strong>進水牙</strong>
+          </div>
+          <div class="size">
+            <div class="name">四分（粗）</div>
+            <div class="pipe">
+              <div class="ring s4">4分</div>
+              <div><strong>外牙外徑約 13mm</strong><br>書面：DN15　／　1/2″</div>
+            </div>
+            常見：港樓<strong>牆／角閥入牆</strong>
+          </div>
+          <div class="step"><span class="n">1</span><span>量<strong>外牙最外一圈</strong>直徑（不是內孔）。</span></div>
+          <div class="step"><span class="n">2</span><span>約 <strong>10mm</strong>＝三分；約 <strong>13mm</strong>＝四分。</span></div>
+          <div class="step"><span class="n">3</span><span>拿不準？問五金舖：「外牙幾毫米？」</span></div>
+          <p class="koujue">口訣：牆多數四分｜龍頭先對進水牙｜冷熱各一套</p>
+          <p class="credit">圖為教學用擬真實物示意，非商品廣告。</p>
+        </section>
+
+        <section class="page" data-i="2">
+          <h2><span class="badge">3</span>購物清單</h2>
+          <p class="lead">牆四分預設。按場景勾。括號＝香港叫法。</p>
+          <div class="shop">
+            <div class="name">洗手盆（冷熱）</div>
+            <div class="row">
+              <img class="thumb" src="assets/angle-valve.webp" alt="角閥" />
+              <div>· 角閥（曲尺制）×2（四分入牆；出牙視龍頭）</div>
+            </div>
+            <div class="row">
+              <img class="thumb" src="assets/braided-hose.webp" alt="進水軟管" />
+              <div>· 進水軟管／不鏽鋼編織軟管（軟網喉）×2（兩頭對角閥出牙＋龍頭進水牙；長度按枱底）</div>
+            </div>
+            <div style="margin-top:8px">· 龍頭若為三分進水：加「四分轉三分」，或改買「四分入、三分出」角閥</div>
+          </div>
+          <div class="shop">
+            <div class="name">廚房</div>
+            同上再一套。
+          </div>
+          <div class="shop">
+            <div class="name">花灑</div>
+            <div class="row">
+              <img class="thumb" src="assets/shower-hose.webp" alt="花灑軟管" />
+              <div>跟套裝；另計花灑軟管（勿當進水軟管）。</div>
+            </div>
+          </div>
+          <div class="shop">
+            <div class="name">耗材</div>
+            <div class="row">
+              <img class="thumb" src="assets/union-fitting.webp" alt="活接頭" />
+              <div>生料帶｜介子（如用活接頭／古力）</div>
+            </div>
+          </div>
+          <p class="say">去五金鋪一句（港）：「牆四分；龍頭三分就要四分轉三分，冷熱各一。」<br>對大陸包裝：認「角閥」「編織軟管／進水軟管」。</p>
+        </section>
+
+        <section class="page" data-i="3">
+          <h2><span class="badge">4</span>錯買決策樹</h2>
+          <p class="lead">情境：龍頭三分 × 牆四分</p>
+          <div class="fix">
+            <div class="rank">① 最穩</div>
+            能退換？→ 換<strong>四分進水</strong>龍頭
+          </div>
+          <div class="fix">
+            <div class="rank">② 換角閥（曲尺制）</div>
+            <div class="row" style="display:flex;gap:10px;align-items:flex-start;margin-top:6px">
+              <img class="thumb" src="assets/angle-valve.webp" alt="角閥" style="width:48px;height:48px;object-fit:contain;background:#f3f7f8;border-radius:8px;border:1px solid var(--line)" />
+              <div>願意換？→ <strong>四分入、三分出</strong>角閥＋<strong>兩頭三分</strong>進水軟管（冷熱各一）</div>
+            </div>
+          </div>
+          <div class="fix">
+            <div class="rank">③ 應急</div>
+            <strong>四分轉三分</strong>單級轉接（冷熱各一）＋對牙進水軟管
+          </div>
+          <div class="bad">❌ 勿多級串<br>❌ 勿硬扭<br>❌ 勿靠生料帶充數</div>
+        </section>
+
+        <section class="page" data-i="4">
+          <h2><span class="badge">5</span>裝前自檢</h2>
+          <p class="lead">裝前三步，漏水機會低好多。</p>
+          <div class="check">
+            <span>□ 關水</span>
+            <span class="arr">↓</span>
+            <span>□ 對牙</span>
+            <span class="arr">↓</span>
+            <span>□ 試壓看漏</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="nav">
+      <div class="dots" id="dots"></div>
+      <div class="tabs" id="tabs">
+        <button class="tab on" data-i="0">對照</button>
+        <button class="tab" data-i="1">尺寸</button>
+        <button class="tab" data-i="2">清單</button>
+        <button class="tab" data-i="3">決策</button>
+        <button class="tab" data-i="4">自檢</button>
+      </div>
+      <div class="row-btns">
+        <button type="button" id="prev">上一頁</button>
+        <button type="button" id="next">下一頁</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  var i = 0, n = 5;
+  var track = document.getElementById('track');
+  var tabs = document.querySelectorAll('.tab');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var dots = document.getElementById('dots');
+  for (var d = 0; d < n; d++) {
+    var el = document.createElement('span');
+    el.className = 'dot' + (d === 0 ? ' on' : '');
+    dots.appendChild(el);
+  }
+  function go(to) {
+    i = Math.max(0, Math.min(n - 1, to));
+    track.style.transform = 'translateX(' + (-i * 20) + '%)';
+    tabs.forEach(function (t) { t.classList.toggle('on', +t.dataset.i === i); });
+    dots.querySelectorAll('.dot').forEach(function (dot, idx) { dot.classList.toggle('on', idx === i); });
+    prev.disabled = i === 0;
+    next.disabled = i === n - 1;
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { go(+t.dataset.i); }); });
+  prev.addEventListener('click', function () { go(i - 1); });
+  next.addEventListener('click', function () { go(i + 1); });
+  var startX = 0, startY = 0, moving = false;
+  var pager = document.getElementById('pager');
+  pager.addEventListener('touchstart', function (e) {
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY; moving = true;
+  }, { passive: true });
+  pager.addEventListener('touchend', function (e) {
+    if (!moving) return; moving = false;
+    var dx = e.changedTouches[0].clientX - startX;
+    var dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) go(i + 1); else go(i - 1);
+    }
+  }, { passive: true });
+  var m = /[?&]page=(\d+)/.exec(location.search);
+  if (m) go(+m[1]); else go(0);
+})();
+</script>
+</body>
+</html>
